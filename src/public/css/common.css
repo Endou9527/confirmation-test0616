@@ -1,0 +1,19 @@
+.header{
+  background-color: #ffffff;
+  height: 53px;
+  margin-bottom: 10px;
+}
+
+.header__logo{
+  margin: 0;
+  padding: 0 20px 10px 20px;
+  box-sizing: border-box;
+  color: #f5c801;
+  font-family: "Diphylleia", serif;
+  font-weight: 300;
+}
+
+main{
+  width: 100%;
+  background-color: #f8f8f8;
+}

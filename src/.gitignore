@@ -1,15 +1,27 @@
-/node_modules
-/public/hot
-/public/storage
-/storage/*.key
+# Laravel default
 /vendor
+/node_modules
+/public/storage
+/storage/*
+!/storage/app
+!/storage/app/public
+!/storage/app/public/images
+/bootstrap/cache
+
+# OS・エディタ・IDE関連
+.DS_Store
+Thumbs.db
+*.log
+*.sublime-project
+*.sublime-workspace
+*.idea
+*.vscode
+
+# 環境・ビルド
 .env
-.env.backup
+.env.*
 .phpunit.result.cache
-docker-compose.override.yml
 Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-/.idea
-/.vscode
