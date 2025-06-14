@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
@@ -11,19 +12,22 @@ class ProductController extends Controller
     }
     
     public function detail(){
-        //
+        return view('detail');
     }
     
-    public function update(){
-        //
+    public function update(ProductRequest $request){
+        $product = $request->only(['name','price','image','description']);
     }
     
     public function register(){
         return view('register');
     }
     
-    public function store(){
-        //
+    public function store(ProductRequest $request){
+        $product = $request->only(['name','price','image','description']);
+        Product::create($product);
+        
+        redirect('/product');
     }
     
     public function search(){

@@ -24,7 +24,7 @@ Route::get('/products/{productId}/update',[ProductController::class,'update']);
 // 登録画面の表示
 Route::get('/products/register',[ProductController::class,'register']);
 // 「登録」→登録機能
-Route::get('/product/register/store',[ProductController::class,'store']);
+Route::get('/products/register/store',[ProductController::class,'store']);
 // 「検索結果画面」表示（「"◯◯◯"の商品一覧」）
 Route::get('/products/search',[ProductController::class,'search']);
 // 「詳細画面」内 🗑️→削除機能
