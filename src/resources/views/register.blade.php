@@ -6,11 +6,11 @@
 
 @section('content')
 <div class="top">
-  <div class="top__title"></div>
+  <h2 class="top__title">商品登録</h2>
 </div>
 
 <div class="content">
-  <form class="form" method="post" action="{{ route('product.store') }}">
+  <form class="form" method="post" action="{{-- {{ route('product.store') }}" --}}>
     @csrf
     <div class="form-group">
       <div class="form-group__title">
@@ -18,7 +18,7 @@
         <span class="form-group__required">必須</span>
       </div>
       <div class="form-group__input">
-        <input type="text" name="name" placeholder="商品名を入力" value="{{ old('name') }}" />
+        <input type="text" name="name" class="form-group__input--section" placeholder="商品名を入力" value="{{ old('name') }}" />
       </div>
       <div class="form-group__alert">
         <div class="form-group__alert--message">
@@ -36,7 +36,7 @@
         <span class="form-group__required">必須</span>
       </div>
       <div class="form-group__input">
-        <input type="text" name="price" placeholder="値段を入力" value="{{ old('price') }}">
+        <input type="text" name="price" class="form-group__input--section" placeholder="値段を入力" value="{{ old('price') }}">
       </div>
       <div class="form-group__alert">
         <div class="form-group__alert--message">
@@ -74,7 +74,7 @@
       <div class="form-group__input">
         {{-- @foreach($seasons as $season) --}}
         <div class="form-group__input--select">
-          <input type="radio" id="春" name="season" value="春" {{ old('season')== '春' $ || old('season')==null ? 'checked' : '' }} />
+          <input type="radio" id="春" name="season" value="春" {{ old('season')==1 ? 'checked' : '' }} />
           <label for="春">春</label>
         </div>
         <div class="form-group__input--select">
@@ -107,8 +107,7 @@
         <span class="form-group__required">必須</span>
       </div>
       <div class="form-group__input">
-        <textarea type="text" name="description" placeholder="商品
-        の説明を入力">{{ old('description') }}</textarea>
+        <textarea type="text" name="description" class="form-group__textarea--section" placeholder="商品の説明を入力">{{ old('description') }}</textarea>
       </div>
       <div class="form-group__alert">
         <div class="form-group__alert--message">

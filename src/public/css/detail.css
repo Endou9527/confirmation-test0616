@@ -1,0 +1,142 @@
+.main{
+  justify-items: center;
+  padding: 10px 20px;
+}
+
+.top,
+.content,
+.bottom,
+.button{
+  width: 80%;
+  margin-top: 30px;
+}
+
+.top{
+  display: flex;
+}
+
+li{
+  list-style: none;
+}
+
+.top__inner{
+  display: flex;
+  width: 20%;
+}
+
+.top__inner--item{
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.top__inner--item--arrow{
+  box-sizing: border-box;
+  margin: 0 5px;
+}
+
+form{
+  width: 80%;
+}
+
+.content{
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.middle{
+  display: flex;
+  width: 100%;
+}
+
+.left,
+.right{
+  width: 50%;
+}
+
+.form-group{
+  margin-bottom: 10px;
+}
+
+.form-group__title{
+  margin-bottom: 10px;
+}
+
+.form-group__required{
+  padding: 5px;
+  background-color: #FD0707;
+  color: #ffffff;
+}
+
+.form-group__input{
+  width: 100%;
+  display: flex;
+  gap: 30px;
+}
+
+.form-group__input--section,
+.form-group__textarea--section
+{
+  border: 1px solid #E0DFDE;
+  border-radius: 5px;
+  padding: 11px 10px;
+}
+
+.form-group__input--section{
+  width: 100%;
+}
+
+/* .form-group__input--select{
+  margin-right: 10px;
+} */
+
+input::placeholder,
+textarea::placeholder{
+  color: #E0DFDE;
+  font-weight: 300;
+  font-size: 14px;
+}
+
+.bottom{
+  width: 100%;
+}
+
+.form-group__textarea--section{
+  width: 100%;
+  height: 100px;
+}
+
+.button{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+
+.button__back{
+  width: 200px;
+  height: 50px;
+}
+
+/* 戻るボタン */
+.back-button{
+  display: inline-block;
+  width: 100%;
+  padding: 13px 10px;
+  background-color: #E0DFDE;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.register-button{
+  width: 200px;
+  height: 50px;
+  padding: 13px 10px;
+  background-color: #F5C800;
+  border-radius: 5px;
+  border: none;
+}
