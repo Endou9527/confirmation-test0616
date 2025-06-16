@@ -14,9 +14,9 @@
   <div class="middle">
     <div class="left">
       <div class="left__search">
-        <form class="search-section">
+        <form class="search-section" method="GET" action="{{ route('products.search') }}">
           <div class="search-section__word">
-            <input type="text" class="word--input" placeholder="　商品名で検索">
+            <input type="text" name="keyword" class="word--input" placeholder="　商品名で検索">
           </div>
           <div class="search-section__button">
             <button class="button-submit">検索</button>
@@ -44,22 +44,24 @@
         </div>
       </div>
       <div class="right__products">
-        {{--  @foreach( as )  --}}
-        <div class="right__product--each">
-          <div class="product__image">
-            <img src="{{ asset('storage/images/kiwi.png') }}" alt="" class="product__image--img">
+        @foreach($products as $product)
+        <a href="{{ route('products.detail', $product->id) }}" class="right__product--each">
+          <div class="right__product--each-a">
+            {{-- 画像 --}}
+            <div class="product__image">
+              <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="product__image--img">
+            </div>
+            {{-- 商品名＆値段 --}}
+            <div class="product__content">
+              <div class="product__content--name">{{ $product->name }}</div>
+              <div class="product__content--price">¥{{ number_format($product->price) }}</div>
+            </div>
           </div>
-          <div class="product__content">
-            <div class="product__content--name"></div>
-            <div class="product__content--price"></div>
-          </div>
-        </div>
-        
-        {{--  @endforeach  --}}
+        </a>
+        @endforeach
       </div>
-      <div class="right__pagination">
 
-      </div>
+      <div class="right__pagination"></div>
     </div>  
   </div>
 @endsection

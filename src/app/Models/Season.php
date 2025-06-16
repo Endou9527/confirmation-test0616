@@ -9,8 +9,13 @@ class Season extends Model
 {
     use HasFactory;
 
-    public function products()
-    {
-        return $this->belongsToMany(Product::class);
-    }
+    protected $guarded = array('id');
+    public static $rules = array(
+        'name' => 'required',
+    );
+
+    // public function getProducts()
+    // {
+    //     return $this->belongsToMany(Product::class, 'product_season', 'season_id', 'product_id');
+    // }
 }

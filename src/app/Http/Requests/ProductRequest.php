@@ -24,10 +24,15 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
+            // productsテーブル用
             'name' => 'required',
             'price' => 'required|integer|min:0|max:10000',
-            'image' => 'required|mimes:png,jpeg,',
+            'image' => 'required|mimes:png,jpeg,jpg',
             'description' => 'required|max:120',
+
+            // products_seasonsテーブル用
+            'season' => 'required|array',
+            'season.*' => 'exists:seasons,id',
         ];
     }
 
@@ -39,10 +44,9 @@ class ProductRequest extends FormRequest
         'price.integer' => '数値で入力してください',
         'price.min' => '0〜10,000円以内で入力してください',
         'price.max' => '0〜10,000円以内で入力してください',
-        //seasonがproductテーブルにないのでどうするか調査
-        'season.required' => '季節を選択してください',
-        'img.required' => '商品画像を登録してください',
-        'img.mimes' => '「.png」または「.jpeg」形式でアップロードしてください',
+        'season_id.required' => '季節を選択してください',
+        'image.required' => '商品画像を登録してください',
+        'image.mimes' => '「.png」または「.jpeg」形式でアップロードしてください',
         'description.required' => '商品説明を入力してください',
         'description.max' => '120文字以内で入力してください',
         ];

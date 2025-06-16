@@ -18,11 +18,11 @@
 </div>
 
 <div class="content">
-  <form class="form" method="post" action="{{-- {{ route('product.store') }}" --}}>
+  <form class="form" method="post" action="{{ route('products.update', ['productId' => $product->id]) }}">
+    @method('PATCH')
     @csrf
 
     <div class="middle">
-      <!-- 画像選択 -->
       <div class="left">
         {{-- 画像 --}}
         <div class="form-group">
@@ -30,25 +30,26 @@
             <label class="form-group__name">商品画像</label>
             <span class="form-group__required">必須</span>
           </div>
-          <!-- 画像表示 -->
+          {{-- 選択中の画像表示 --}}
           <div class="form-group__image">
-            <img> {{-- ここに選択中の画像はいる --}}
+            <img src="{{ asset($product->image) }}" alt="商品画像">
           </div>
-          <!-- 画像選択 -->
+          {{-- 画像を変更する --}}
           <div class="form-group__input">
-            <input type="file" name="image" value="{{ old('image') }}">
+            <input type="file" name="image">
+            <input type="hidden" name="id" value="{{ $product->id }}">
           </div>
           <div class="form-group__alert">
             <div class="form-group__alert--message">
-              {{-- @error('image') --}}
-              {{-- $message --}}
-              {{-- @enderror --}}
+              @error('image')
+              $message
+              @enderror
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 「商品名」「値段」「季節」 -->
+      {{-- 「商品名」「値段」「季節」 --}}
       <div class="right">
         {{-- 商品名 --}}
         <div class="form-group">
@@ -57,13 +58,13 @@
             <span class="form-group__required">必須</span>
           </div>
           <div class="form-group__input">
-            <input type="text" name="name" class="form-group__input--section" placeholder="商品名を入力" value="{{ old('name') }}" />
+            <input type="text" name="name" class="form-group__input--section" value="{{ old('name',$product->name) }}" />
           </div>
           <div class="form-group__alert">
             <div class="form-group__alert--message">
-              {{-- @error('name') --}}
-              {{-- $message --}}
-              {{-- @enderror --}}
+              @error('name')
+              $message
+              @enderror
             </div>
           </div>
         </div>
@@ -75,13 +76,13 @@
             <span class="form-group__required">必須</span>
           </div>
           <div class="form-group__input">
-            <input type="text" name="price" class="form-group__input--section" placeholder="値段を入力" value="{{ old('price') }}">
+            <input type="text" name="price" class="form-group__input--section" value="{{ old('price',$product->price) }}">
           </div>
           <div class="form-group__alert">
             <div class="form-group__alert--message">
-              {{-- @error('price') --}}
-              {{-- $message --}}
-              {{-- @enderror --}}
+              @error('price')
+              $message
+              @enderror
             </div>
           </div>
         </div>
@@ -93,41 +94,25 @@
             <span class="form-group__required">必須</span>
           </div>
           <div class="form-group__input">
-            {{-- @foreach($seasons as $season) --}}
+            @foreach($seasons as $season)
             <div class="form-group__input--select">
-              <input type="radio" id="春" name="season" value="春" {{ old('season')==1 ? 'checked' : '' }} />
-              <label for="春">春</label>
+              <input type="checkbox" id="season_{{ $season->id }}" name="season[]" value="{{ $season->id }}"{{ in_array($season->id, old('season', $product->seasons->pluck('id')->toArray())) ? 'checked' : '' }} />
+              <label for="season_{{ $season->id }}">{{ $season->name }}</label>
             </div>
-            <div class="form-group__input--select">
-              <input type="radio" id="夏" name="season" value="夏" {{ old('season')==2 ? 'checked' : '' }} />
-              <label>夏</label>
-            </div>
-            <div class="form-group__input--select">
-              <input type="radio" id="秋" name="season" value="秋" {{ old('season')==3 ? 'checked' : '' }} />
-              <label>秋</label>
-            </div>
-            <div class="form-group__input--select">
-              <input type="radio" id="冬" name="season" value="冬" {{ old('season')==4 ? 'checked' : '' }} />
-              <label>冬</label>
-            </div>
-            {{-- @endforeach --}}
+            @endforeach
           </div>
           <div class="form-group__alert">
             <div class="form-group__alert--message">
-              {{-- @error('season') --}}
-              {{-- {{ $message }} --}}
-              {{-- @enderror --}}
+              @error('season')
+              {{ $message }}
+              @enderror
             </div>
           </div>
         </div>
-
-
-
-        
       </div>
     </div>
 
-    <!-- 商品詳細 -->
+    {{-- 商品詳細 --}}
     <div class="bottom">
       {{-- 説明 --}}
       <div class="form-group">
@@ -136,13 +121,13 @@
           <span class="form-group__required">必須</span>
         </div>
         <div class="form-group__input">
-          <textarea type="text" name="description" class="form-group__textarea--section" placeholder="商品の説明を入力">{{ old('description') }}</textarea>
+          <textarea type="text" name="description" class="form-group__textarea--section">{{ old('description',$product->description) }}</textarea>
         </div>
         <div class="form-group__alert">
           <div class="form-group__alert--message">
-            {{-- @error('description') --}}
-            {{-- $message --}}
-            {{-- @enderror --}}
+            @error('description')
+            $message
+            @enderror
           </div>
         </div>
       </div>
@@ -151,11 +136,21 @@
 </div>
 
 <div class="button">
+  {{-- 戻るボタン --}}
   <div class="button__back">
     <a class="back-button" href="/products">戻る</a>
   </div>
+  {{-- 登録ボタン --}}
   <div class="button__register">
     <button class="register-button">変更を保存</button>
+  </div>
+
+  {{-- 削除ボタン --}}
+  <div class="button__delete">
+    <!-- <form action="products/{productId}/delete" method="POST"> -->
+      @csrf
+      <button class="register-delete">🗑️</button>
+    <!-- </form> -->
   </div>
 </div>
 @endsection
