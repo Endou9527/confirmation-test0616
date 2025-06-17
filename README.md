@@ -39,23 +39,19 @@ Docker と Docker Compose をインストールしてください。インスト
 ```
  cd coachtech/laravel
 ```
+
 ```
  git clone git@github.com:Endou9527/confirmation-test0616.git
 ```
+
 ```
  mv confirmation-test0616 20250618mogitate_endou
 ```
 
-
 ```
  cd 20250618mogitate_endou
 ```
-```
- git remote set-url origin 作成したリポジトリのurl
-```
-```
- git remote -v
-```
+
 
 
 #### ３. Dockerの設定
