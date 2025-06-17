@@ -132,8 +132,13 @@ php artisan key:generate
   | 検索　　        | /products/search             |
   | 削除  　　      | /products/{productId}/delete |
 
+  
+
 ### ER図
 　　![ER図](ER図.jpg)
+
+
+
 
 
 ### 画像情報
