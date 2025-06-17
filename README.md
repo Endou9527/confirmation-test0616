@@ -11,6 +11,8 @@
 - 商品データの更新・削除
 - 商品データ一覧の並び替え（昇順・降順）
 
+
+
 ## 2.主要技術
 
 | 言語・フレームワーク　 | バージョン |
@@ -22,6 +24,7 @@
 | Docker               | 28.0.4,    |
 
 
+
 ## 3.開発環境構築方法
 
 #### 1. Docker と Docker Compose のインストール
@@ -31,21 +34,19 @@ Docker と Docker Compose をインストールしてください。インスト
 
 #### 2. リポジトリの設定
 
-開発環境をGithubからクローン
+開発環境をGithubからクローン<br />
 (例)coachtech/laravelディレクトリ以下にクローン　→　リポジトリ名を「20250618mogitate_endou」に変更
 ```
  cd coachtech/laravel
 ```
 ```
- cd git clone git@github.com:Endou9527/confirmation-test0616.git
+ git clone git@github.com:Endou9527/confirmation-test0616.git
 ```
 ```
- mv laravel-docker-template 20250618mogitate_endou
+ mv confirmation-test0616 20250618mogitate_endou
 ```
 
 
-↓いる？いらない？
-リポジトリを作成、URLの取得
 ```
  cd 20250618mogitate_endou
 ```
@@ -55,18 +56,6 @@ Docker と Docker Compose をインストールしてください。インスト
 ```
  git remote -v
 ```
-
-ローカルリポジトリの内容をリモートに反映させる
-```
- git add .
-```
-```
- git commit -m "リモートリポジトリの変更"
-```
-```
- git push origin main
-```
-↑ここまで
 
 
 #### ３. Dockerの設定
@@ -103,10 +92,6 @@ composer install
 cp .env.example .env
 ```
 
-```
-exit
-```
-
 
 ```
 // 前略
@@ -124,6 +109,13 @@ DB_PORT=3306
 
 // 後略
 
+```
+
+
+アプリケーションキーを生成
+
+```
+php artisan key:generate
 ```
 
 
