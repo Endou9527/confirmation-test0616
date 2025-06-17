@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-  <link rel="stylesheet" href="{{ asset('css/index.css') }}"/>
+  <link rel="stylesheet" href="{{ asset('css/search.css') }}"/>
 @endsection
 
 @section('content')
@@ -44,22 +44,22 @@
       <div class="right__product">
         @if ($products->count())
         @foreach($products as $product)
-        <a href="{{ route('products.detail', $product->id) }}" class="right__product--each">
-          <div class="right__product--each-a">
+        <div class="right__product--each">
+          <a href="{{ route('products.detail', $product->id) }}" class="right__product--each-a">
             {{-- 画像 --}}
             <div class="product__image">
-              <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="product__image--img">
+              <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="product__image--img" />
             </div>
             {{-- 商品名＆値段 --}}
             <div class="product__content">
               <div class="product__content--name">{{ $product->name }}</div>
               <div class="product__content--price">¥{{ number_format($product->price) }}</div>
             </div>
-          </div>
-        </a>
+          </a>
+        </div>
         @endforeach
         @else
-          <p>該当する商品はありません。</p>
+        <p>該当する商品はありません。</p>
         @endif
       </div>
       <div class="right__pagination">

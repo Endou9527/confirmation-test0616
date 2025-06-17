@@ -25,7 +25,6 @@ main{
   height: 30px;
 }
 
-
 .word--input{
   width: 100%;
   height: 30px;
@@ -110,4 +109,14 @@ main{
 
 .product__content{
   display: flex;
+  padding: 5px 10px;
+}
+
+.right__pagination{
+  justify-items: center;
+}
+
+svg.w-5.h-5 {
+    width: 30px;
+    height: 30px;
 }

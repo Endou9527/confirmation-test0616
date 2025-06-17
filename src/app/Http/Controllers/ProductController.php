@@ -27,7 +27,7 @@ class ProductController extends Controller
             $query->orderBy('price', 'asc');
         }
 
-        $products = $query->paginate(10)->appends([
+        $products = $query->paginate(6)->appends([
             'keyword' => $keyword,
             'order' => $order,
         ]);
@@ -105,7 +105,7 @@ class ProductController extends Controller
             $query->orderBy('price', 'asc'); // 安い順
         }
 
-        $products = $query->paginate(10)->appends([
+        $products = $query->paginate(6)->appends([
         'keyword' => $keyword,
         'order' => $order
          ]);

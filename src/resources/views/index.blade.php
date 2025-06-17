@@ -46,8 +46,8 @@
       </div>
       <div class="right__products">
         @foreach($products as $product)
-        <a href="{{ route('products.detail', $product->id) }}" class="right__product--each">
-          <div class="right__product--each-a">
+        <div class="right__product--each">
+          <a href="{{ route('products.detail', $product->id) }}" class="right__product--each-a">
             {{-- 画像 --}}
             <div class="product__image">
               <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="product__image--img">
@@ -57,8 +57,8 @@
               <div class="product__content--name">{{ $product->name }}</div>
               <div class="product__content--price">¥{{ number_format($product->price) }}</div>
             </div>
-          </div>
-        </a>
+          </a>
+        </div>
         @endforeach
       </div>
 
