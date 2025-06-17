@@ -10,6 +10,12 @@ main{
   grid-row: 1/2;
 }
 
+.middle{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
 .left{
   grid-column: 1/2;
   grid-row: 2/6;

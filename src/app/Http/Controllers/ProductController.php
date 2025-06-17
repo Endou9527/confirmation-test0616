@@ -5,19 +5,39 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Season;
-use App\Http\Requests\ProductRequest;
+use App\Http\Requests\UpdateProductRequest;
+use App\Http\Requests\StoreProductRequest;
 
 class ProductController extends Controller
 {
-    public function index(){
-        $products = Product::all();
-        return view('index',compact('products'));
-    }
+    public function index(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $order = $request->input('order');
+
+        $query = Product::query();
+
+        if (!empty($keyword)) {
+            $query->where('name', 'like', '%' . $keyword . '%');
+        }
+
+        if ($order === 'high') {
+            $query->orderBy('price', 'desc');
+        } elseif ($order === 'low') {
+            $query->orderBy('price', 'asc');
+        }
+
+        $products = $query->paginate(10)->appends([
+            'keyword' => $keyword,
+            'order' => $order,
+        ]);
+
+        return view('index', compact('products', 'keyword', 'order'));
+        }
 
     public function register(){
-        return view('register');
-        // $seasons = Season::all();
-        // return view('register',compact('seasons'));
+        $seasons = Season::all();
+        return view('register',compact('seasons'));
     }
 
     public function detail($productId){
@@ -27,7 +47,7 @@ class ProductController extends Controller
         return view('detail',compact('product','seasons'));
     }
     
-    public function update(ProductRequest $request, $productId)
+    public function update(UpdateProductRequest $request, $productId)
     {
         $product = Product::findOrFail($productId);
 
@@ -35,38 +55,42 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->description = $request->description;
 
-        // 画像処理（もしアップロードされた場合）
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('images', 'public');
-            $product->image = $path;
+            $product->image = 'storage/' . $path;
         }
 
         $product->save();
 
-        // 中間テーブル（seasons）も更新
         if ($request->has('season')) {
             $product->seasons()->sync($request->season);
         }
 
         return redirect()->route('products.detail', $productId)->with('message', '更新しました');
     }
-    
-    public function store(ProductRequest $request)
+
+    public function store(StoreProductRequest $request)
     {
-    // 商品情報を保存（imageアップロード含む場合）
-    $productData = $request->only(['name', 'price', 'description']);
-    $productData['image'] = $request->file('image')->store('images', 'public');
-    $product = Product::create($productData);
+        $productData = $request->only(['name', 'price', 'description']);
 
-    // 季節のID（配列）を取得して、中間テーブルに保存
-    $seasonIds = $request->input('season', []);
-    $product->seasons()->attach($seasonIds);
+        if ($request->hasFile('image')) {
+            // 「public/images」に保存 → パスは「storage/images/xxx.jpg」として保存
+            $path = $request->file('image')->store('images', 'public');
+            $productData['image'] = 'storage/' . $path;
+        }
 
-    return redirect('/products')->with('success', '商品を登録しました');
+        $product = Product::create($productData);
+
+        // 中間テーブル登録
+        $seasonIds = $request->input('season', []);
+        $product->seasons()->attach($seasonIds);
+
+        return redirect('/products')->with('success', '商品を登録しました');
     }
-    
+
     public function search(Request $request){
         $keyword = $request->input('keyword');
+        $order = $request->input('order');
 
         $query = Product::query();
 
@@ -74,18 +98,24 @@ class ProductController extends Controller
             $query->where('name', 'like', '%' . $keyword . '%');
         }
 
-        $products = $query->paginate(10);
+        // 並び替え処理
+        if ($order === 'high') {
+            $query->orderBy('price', 'desc'); // 高い順
+        } elseif ($order === 'low') {
+            $query->orderBy('price', 'asc'); // 安い順
+        }
 
-        return view('search', compact('products', 'keyword'));
+        $products = $query->paginate(10)->appends([
+        'keyword' => $keyword,
+        'order' => $order
+         ]);
+
+        return view('search', compact('products', 'keyword','order'));
     }
     
-    public function destroy(Request $request){
-        $product = Product::find($request->id)->delete();
+    public function destroy($productId){
+        $product = Product::findOrFail($productId);
+        $product->delete();
         return redirect('/products')->with('message','商品を削除しました');
-    }
-
-    public function test(){
-        return view('test');
-    }
-    
+    }    
 }

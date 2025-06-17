@@ -1,9 +1,8 @@
 .main{
   justify-items: center;
-  padding: 10px 20px;
+  padding: 50px 20px;
 }
 
-.top,
 .content,
 .bottom,
 .button{
@@ -12,6 +11,7 @@
 }
 
 .top{
+  width: 80%;
   display: flex;
 }
 
@@ -21,7 +21,7 @@ li{
 
 .top__inner{
   display: flex;
-  width: 20%;
+  width: 30%;
 }
 
 .top__inner--item{
@@ -42,6 +42,7 @@ form{
 .content{
   margin-top: 30px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
@@ -143,4 +144,11 @@ textarea::placeholder{
   background-color: #F5C800;
   border-radius: 5px;
   border: none;
+}
+
+.button__delete{
+  width: 100%;
+  height: 20%;
+  margin: -30px;
+  text-align: right;
 }

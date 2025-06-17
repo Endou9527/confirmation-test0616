@@ -12,16 +12,15 @@
     </li>
     <li class="top__inner--item">
       <span class="top__inner--item--arrow">>  </span>
-      <div class="top__inner--item--name">キウイ</div>
+      <div class="top__inner--item--name">{{ $product->name }}</div>
     </li>
   </ul>
 </div>
 
-<div class="content">
-  <form class="form" method="post" action="{{ route('products.update', ['productId' => $product->id]) }}">
-    @method('PATCH')
-    @csrf
-
+<form class="form" method="post" action="{{ route('products.update', ['productId' => $product->id]) }}" enctype="multipart/form-data">
+  @csrf
+  @method('PATCH')
+  <div class="content">
     <div class="middle">
       <div class="left">
         {{-- 画像 --}}
@@ -42,7 +41,7 @@
           <div class="form-group__alert">
             <div class="form-group__alert--message">
               @error('image')
-              $message
+              {{ $message }}
               @enderror
             </div>
           </div>
@@ -63,7 +62,7 @@
           <div class="form-group__alert">
             <div class="form-group__alert--message">
               @error('name')
-              $message
+              {{ $message }}
               @enderror
             </div>
           </div>
@@ -81,7 +80,7 @@
           <div class="form-group__alert">
             <div class="form-group__alert--message">
               @error('price')
-              $message
+              {{ $message }}
               @enderror
             </div>
           </div>
@@ -126,31 +125,32 @@
         <div class="form-group__alert">
           <div class="form-group__alert--message">
             @error('description')
-            $message
+            {{ $message }}
             @enderror
           </div>
         </div>
       </div>
     </div>
-  </form>
-</div>
 
-<div class="button">
-  {{-- 戻るボタン --}}
-  <div class="button__back">
-    <a class="back-button" href="/products">戻る</a>
+    <div class="button">
+      {{-- 戻るボタン --}}
+      <div class="button__back">
+        <a class="back-button" href="/products">戻る</a>
+      </div>
+      {{-- 登録ボタン --}}
+      <div class="button__register">
+        <button type="submit" class="register-button">変更を保存</button>
+      </div>
+    </div>
   </div>
-  {{-- 登録ボタン --}}
-  <div class="button__register">
-    <button class="register-button">変更を保存</button>
-  </div>
+</form>
 
   {{-- 削除ボタン --}}
+<form action="{{ route('products.destroy',['productId' => $product->id]) }}" method="POST">
+  @csrf
+  @method('DELETE')
   <div class="button__delete">
-    <!-- <form action="products/{productId}/delete" method="POST"> -->
-      @csrf
-      <button class="register-delete">🗑️</button>
-    <!-- </form> -->
+    <button type="submit" class="register-delete">🗑️</button>
   </div>
-</div>
+</form>
 @endsection

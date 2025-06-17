@@ -20,6 +20,12 @@ main{
   gap: 10px;
 }
 
+.search-section__word{
+  width: 100%;
+  height: 30px;
+}
+
+
 .word--input{
   width: 100%;
   height: 30px;

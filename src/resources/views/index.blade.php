@@ -12,35 +12,36 @@
   </div>
 
   <div class="middle">
-    <div class="left">
+    <form class="left" method="GET" action="{{ route('products.search') }}">
       <div class="left__search">
-        <form class="search-section" method="GET" action="{{ route('products.search') }}">
+        <div class="search-section">
           <div class="search-section__word">
-            <input type="text" name="keyword" class="word--input" placeholder="　商品名で検索">
+            <input type="text" class="word--input" name="keyword" value="{{ old('keyword', $keyword ?? '') }}" placeholder="　商品名で検索">
           </div>
           <div class="search-section__button">
             <button class="button-submit">検索</button>
           </div>
-        </form>
+        </div>
       </div>
+
       <div class="left__order">
         <div class="order__description">
           <p>価格順で表示</p>
         </div>
         <div class="order__select">
-          <select class="order__select--box">
+          <select class="order__select--box" onchange="this.form.submit()">
             <option value="">価格で並べ替え</option>
-            <option>高い順に表示</option>     {{--  ascending-order  --}}
-            <option>低い順に表示</option>    {{--  descending-order  --}}
+            <option value="high" {{ ($order ?? '') == 'high' ? 'selected' : '' }}>高い順に表示</option>
+            <option value="low" {{($order ?? '') == 'low' ? 'selected' : '' }}>低い順に表示</option>
           </select>
         </div>
       </div>
-    </div>
+    </form>
 
     <div class="right">
       <div class="right__register">
         <div class="register-button">
-          <a href="/products/register" class="button__a">＋商品を追加</a>
+          <a href="/register" class="button__a">＋商品を追加</a>
         </div>
       </div>
       <div class="right__products">
@@ -61,7 +62,9 @@
         @endforeach
       </div>
 
-      <div class="right__pagination"></div>
+      <div class="right__pagination">
+        {{ $products->links() }}
+      </div>
     </div>  
   </div>
 @endsection
