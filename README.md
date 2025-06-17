@@ -133,7 +133,7 @@ php artisan key:generate
   | 削除  　　      | /products/{productId}/delete |
 
 ### ER図
-　　![ER図](/ER図.png)
+　　![ER図](ER図.png)
 
 
 ### 画像情報
