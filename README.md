@@ -131,15 +131,15 @@ php artisan key:generate
   | 商品登録       | __/register__　　　　　           |
   | 検索　　        | /products/search             |
   | 削除  　　      | /products/{productId}/delete |
-
-  
+  <br /> 
+  <br />
+  <br />
 
 ### ER図
 　　![ER図](ER図.jpg)
-
-
-
-
+  <br /> 
+  <br />
+  <br />  
 
 ### 画像情報
 
